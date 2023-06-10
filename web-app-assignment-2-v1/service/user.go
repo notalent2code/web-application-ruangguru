@@ -5,6 +5,8 @@ import (
 	repo "a21hc3NpZ25tZW50/repository"
 	"errors"
 	"time"
+
+	"github.com/golang-jwt/jwt"
 )
 
 type UserService interface {
@@ -23,7 +25,7 @@ func NewUserService(userRepository repo.UserRepository) UserService {
 
 func (s *userService) Register(user *model.User) (model.User, error) {
 	dbUser, err := s.userRepo.GetUserByEmail(user.Email)
-	if err != nil {
+	if err != nil && err.Error() != "record not found" {
 		return *user, err
 	}
 
@@ -42,9 +44,38 @@ func (s *userService) Register(user *model.User) (model.User, error) {
 }
 
 func (s *userService) Login(user *model.User) (token *string, err error) {
-	return nil, nil // TODO: replace this
+	dbUser, err := s.userRepo.GetUserByEmail(user.Email)
+	if err != nil {
+		return nil, err
+	}
+
+	if dbUser.Email == "" || dbUser.ID == 0 {
+		return nil, errors.New("email not found")
+	}
+
+	if dbUser.Password != user.Password {
+		return nil, errors.New("wrong email or password")
+	}
+
+	expirationTime := time.Now().Add(5 * time.Minute)
+
+	claims := &model.Claims{
+		UserID: dbUser.ID,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: expirationTime.Unix(),
+		},
+	}
+
+	newToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	tokenString, err := newToken.SignedString(model.JwtKey)
+	if err != nil {
+		return nil, err
+	}
+
+	return &tokenString, nil
 }
 
 func (s *userService) GetUserTaskCategory() ([]model.UserTaskCategory, error) {
-	return nil, nil // TODO: replace this
+	return s.userRepo.GetUserTaskCategory()
 }

@@ -33,11 +33,21 @@ func (t *taskRepository) Store(task *model.Task) error {
 }
 
 func (t *taskRepository) Update(task *model.Task) error {
-	return nil // TODO: replace this
+	err := t.db.Save(task).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (t *taskRepository) Delete(id int) error {
-	return nil // TODO: replace this
+	err := t.db.Delete(&model.Task{}, id).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (t *taskRepository) GetByID(id int) (*model.Task, error) {
@@ -51,9 +61,20 @@ func (t *taskRepository) GetByID(id int) (*model.Task, error) {
 }
 
 func (t *taskRepository) GetList() ([]model.Task, error) {
-	return nil, nil // TODO: replace this
+	var tasks []model.Task
+	err := t.db.Find(&tasks).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return tasks, nil
 }
 
 func (t *taskRepository) GetTaskCategory(id int) ([]model.TaskCategory, error) {
-	return nil, nil // TODO: replace this
+	var taskCategory []model.TaskCategory
+	err := t.db.Table("tasks").Select("tasks.id, tasks.title, tasks.deadline, tasks.priority, tasks.status, categories.name as category").Joins("left join categories on tasks.category_id = categories.id").Where("tasks.id = ?", id).Scan(&taskCategory).Error
+	if err != nil {
+		return nil, err
+	}
+	return taskCategory, nil
 }

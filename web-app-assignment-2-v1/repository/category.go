@@ -2,8 +2,7 @@ package repository
 
 import (
 	"a21hc3NpZ25tZW50/model"
-	"fmt"
-
+	
 	"gorm.io/gorm"
 )
 
@@ -33,11 +32,22 @@ func (c *categoryRepository) Store(Category *model.Category) error {
 }
 
 func (c *categoryRepository) Update(id int, category model.Category) error {
-	return nil // TODO: replace this
+	err := c.db.Model(&category).Where("id = ?", id).Updates(category).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (c *categoryRepository) Delete(id int) error {
-	return fmt.Errorf("not implement") // TODO: replace this
+	var Category model.Category
+	err := c.db.Where("id = ?", id).Delete(&Category).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (c *categoryRepository) GetByID(id int) (*model.Category, error) {
@@ -51,5 +61,11 @@ func (c *categoryRepository) GetByID(id int) (*model.Category, error) {
 }
 
 func (c *categoryRepository) GetList() ([]model.Category, error) {
-	return nil, nil // TODO: replace this
+	var Categories []model.Category
+	err := c.db.Find(&Categories).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return Categories, nil
 }

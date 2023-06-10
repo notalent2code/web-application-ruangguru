@@ -101,7 +101,7 @@ func (t *taskAPI) GetTaskList(c *gin.Context) {
 }
 
 func (t *taskAPI) GetTaskListByCategory(c *gin.Context) {
-	taskID, err := strconv.Atoi(c.Param("id"))
+	taskID, err := strconv.Atoi(c.Value("id").(string))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: "Invalid task ID"})
 		return

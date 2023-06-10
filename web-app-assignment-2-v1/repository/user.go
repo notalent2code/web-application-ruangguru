@@ -21,7 +21,12 @@ func NewUserRepo(db *gorm.DB) *userRepository {
 }
 
 func (r *userRepository) GetUserByEmail(email string) (model.User, error) {
-	model.User{}, nil // TODO: replace this
+	var user model.User
+	err := r.db.Where("email = ?", email).First(&user).Error
+	if err != nil {
+		return user, err
+	}
+	return user, nil
 }
 
 func (r *userRepository) CreateUser(user model.User) (model.User, error) {
@@ -33,5 +38,10 @@ func (r *userRepository) CreateUser(user model.User) (model.User, error) {
 }
 
 func (r *userRepository) GetUserTaskCategory() ([]model.UserTaskCategory, error) {
-	return nil, nil // TODO: replace this
+	var userTaskCategory []model.UserTaskCategory
+	err := r.db.Table("users").Select("users.id, users.fullname, users.email, tasks.title as task, tasks.deadline, tasks.priority, tasks.status, categories.name as category").Joins("left join tasks on tasks.user_id = users.id").Joins("left join categories on tasks.category_id = categories.id").Scan(&userTaskCategory).Error
+	if err != nil {
+		return userTaskCategory, err
+	}
+	return userTaskCategory, nil
 }
