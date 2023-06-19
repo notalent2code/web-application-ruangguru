@@ -2,7 +2,6 @@ package repository
 
 import (
 	"a21hc3NpZ25tZW50/model"
-	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -32,12 +31,14 @@ func (c *categoryRepository) Store(Category *model.Category) error {
 	return nil
 }
 
-func (c *categoryRepository) Update(id int, category model.Category) error {
-	return nil // TODO: replace this
+func (c *categoryRepository) Update(id int, category model.Category) error {// TODO: replace this
+	err := c.db.Where(id).Updates(category).Error
+	return err
 }
 
-func (c *categoryRepository) Delete(id int) error {
-	return fmt.Errorf("not implement") // TODO: replace this
+func (c *categoryRepository) Delete(id int) error {	// TODO: replace this
+	err := c.db.Where(id).Delete(&model.Category{})
+	return err.Error 
 }
 
 func (c *categoryRepository) GetByID(id int) (*model.Category, error) {
@@ -50,6 +51,16 @@ func (c *categoryRepository) GetByID(id int) (*model.Category, error) {
 	return &Category, nil
 }
 
-func (c *categoryRepository) GetList() ([]model.Category, error) {
-	return nil, nil // TODO: replace this
+func (c *categoryRepository) GetList() ([]model.Category, error) {// TODO: replace this
+	var result []model.Category
+	rows, err := c.db.Table("categories").Rows()
+	if err != nil{
+		return []model.Category{}, err
+	}
+	defer rows.Close()
+
+	for rows.Next() { 
+		c.db.ScanRows(rows, &result)
+	}
+	return result, nil 
 }
