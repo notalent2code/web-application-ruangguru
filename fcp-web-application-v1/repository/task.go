@@ -32,12 +32,14 @@ func (t *taskRepository) Store(task *model.Task) error {
 	return nil
 }
 
-func (t *taskRepository) Update(id int, task *model.Task) error {
-	return nil // TODO: replace this
+func (t *taskRepository) Update(id int, task *model.Task) error {	// TODO: replace this
+	err := t.db.Where(id).Updates(task).Error
+	return err
 }
 
-func (t *taskRepository) Delete(id int) error {
-	return nil // TODO: replace this
+func (t *taskRepository) Delete(id int) error {						// TODO: replace this
+	err := t.db.Where(id).Delete(&model.Task{}).Error
+	return err
 }
 
 func (t *taskRepository) GetByID(id int) (*model.Task, error) {
@@ -50,10 +52,22 @@ func (t *taskRepository) GetByID(id int) (*model.Task, error) {
 	return &task, nil
 }
 
-func (t *taskRepository) GetList() ([]model.Task, error) {
-	return nil, nil // TODO: replace this
+func (t *taskRepository) GetList() ([]model.Task, error) {// TODO: replace this
+	var result []model.Task
+	rows, err := t.db.Table("tasks").Rows()
+	if err != nil{
+		return []model.Task{}, err
+	}
+	defer rows.Close()
+
+	for rows.Next() { 
+		t.db.ScanRows(rows, &result)
+	}
+	return result, nil
 }
 
-func (t *taskRepository) GetTaskCategory(id int) ([]model.TaskCategory, error) {
-	return nil, nil // TODO: replace this
+func (t *taskRepository) GetTaskCategory(id int) ([]model.TaskCategory, error) {// TODO: replace this
+	result := []model.TaskCategory{}
+	t.db.Table("tasks").Select("tasks.id, tasks.title, categories.name AS category").Joins("inner join categories on tasks.category_id = categories.id").Where("tasks.id = ?", id).Scan(&result)
+	return result, nil 
 }
