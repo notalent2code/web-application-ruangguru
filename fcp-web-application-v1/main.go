@@ -64,8 +64,8 @@ func main() {
 		dbCredential := model.Credential{
 			Host:         "localhost",
 			Username:     "postgres",
-			Password:     "postgres",
-			DatabaseName: "kampusmerdeka",
+			Password:     "kambing",
+			DatabaseName: "be4_ruangguru",
 			Port:         5432,
 			Schema:       "public",
 		}
