@@ -85,9 +85,13 @@ func (s *userService) Login(user *model.User) (token *string, err error) {
 		err = s.sessionsRepo.UpdateSessions(session)
 	}
 
+	if err != nil {
+		return nil, err
+	}
+
 	return &tokenString, nil
 }
 
-func (s *userService) GetUserTaskCategory() ([]model.UserTaskCategory, error) {
-	return nil, nil // TODO: replace this
+func (s *userService) GetUserTaskCategory() ([]model.UserTaskCategory, error) {// TODO: replace this
+	return s.userRepo.GetUserTaskCategory()
 }
