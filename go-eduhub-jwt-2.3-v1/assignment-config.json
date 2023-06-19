@@ -1,0 +1,19 @@
+{
+	"name": "go-eduhub-jwt-2.3",
+	"course": "Web Application",
+	"title": "Go EduHub JWT 2.3",
+	"order": 1,
+	"topics": [
+		"gin",
+		"gorm",
+		"jwt",
+		"auth",
+		"mvc"
+	],
+	"image": "golang-database",
+	"command": "go test",
+	"totalTestCase": 10,
+	"metadata": {
+		"type": "live-coding"
+	}
+}
