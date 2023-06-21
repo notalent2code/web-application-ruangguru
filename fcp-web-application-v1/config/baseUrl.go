@@ -3,8 +3,8 @@ package config
 import "os"
 
 var (
-	// BaseURL is the base url of the server
 	BaseURL = os.Getenv("BASE_URL")
+	PORT    = os.Getenv("PORT")
 )
 
 func SetUrl(url string) string {
@@ -13,4 +13,12 @@ func SetUrl(url string) string {
 	}
 
 	return BaseURL + url
+}
+
+func SetPort() string {
+	if PORT == "" {
+		PORT = "8080"
+	}
+
+	return PORT
 }

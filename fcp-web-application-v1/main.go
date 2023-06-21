@@ -7,6 +7,7 @@ import (
 	"a21hc3NpZ25tZW50/handler/web"
 	"a21hc3NpZ25tZW50/middleware"
 	"a21hc3NpZ25tZW50/model"
+	"a21hc3NpZ25tZW50/config"
 	repo "a21hc3NpZ25tZW50/repository"
 	"a21hc3NpZ25tZW50/service"
 	"embed"
@@ -15,7 +16,7 @@ import (
 	"sync"
 	"time"
 
-	_ "embed"
+	// _ "embed"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
@@ -80,8 +81,12 @@ func main() {
 		router = RunServer(conn, router)
 		router = RunClient(conn, router, Resources)
 
-		fmt.Println("Server is running on port 8080")
-		err = router.Run(":8080")
+		config.SetUrl("")
+		config.SetPort()
+
+		fmt.Println("Server running on " + config.BaseURL)
+
+		err = router.Run(":" + config.PORT)
 		if err != nil {
 			panic(err)
 		}
