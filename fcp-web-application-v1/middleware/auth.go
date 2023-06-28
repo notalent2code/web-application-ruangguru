@@ -15,7 +15,7 @@ func Auth() gin.HandlerFunc {
 				if ctx.GetHeader("Content-Type") == "application/json" {
 					ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
 				} else {
-					ctx.Redirect(http.StatusSeeOther, "/user/login")
+					ctx.Redirect(http.StatusSeeOther, "/client/login")
 					ctx.Abort()
 				}
 				return
