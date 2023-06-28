@@ -9,7 +9,7 @@ var (
 
 func SetUrl(url string) string {
 	if BaseURL == "" {
-		BaseURL = "http://localhost:8080"
+		BaseURL = "http://localhost:8081"
 	}
 
 	return BaseURL + url
@@ -17,7 +17,7 @@ func SetUrl(url string) string {
 
 func SetPort() string {
 	if PORT == "" {
-		PORT = "8080"
+		PORT = "8081"
 	}
 
 	return PORT
