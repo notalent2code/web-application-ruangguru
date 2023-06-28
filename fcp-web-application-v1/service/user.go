@@ -92,6 +92,6 @@ func (s *userService) Login(user *model.User) (token *string, err error) {
 	return &tokenString, nil
 }
 
-func (s *userService) GetUserTaskCategory() ([]model.UserTaskCategory, error) {// TODO: replace this
+func (s *userService) GetUserTaskCategory() ([]model.UserTaskCategory, error) {
 	return s.userRepo.GetUserTaskCategory()
 }

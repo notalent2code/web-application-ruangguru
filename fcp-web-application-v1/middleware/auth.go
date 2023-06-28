@@ -8,7 +8,7 @@ import (
 )
 
 func Auth() gin.HandlerFunc {
-	return gin.HandlerFunc(func(ctx *gin.Context) {// TODO: answer here
+	return gin.HandlerFunc(func(ctx *gin.Context) {
 		data, err := ctx.Cookie("session_token")
 		if err != nil {
 			if err == http.ErrNoCookie {
