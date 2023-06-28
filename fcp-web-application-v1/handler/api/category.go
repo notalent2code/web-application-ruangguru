@@ -38,23 +38,23 @@ func (ct *categoryAPI) AddCategory(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, model.SuccessResponse{Message: "add category success"})
+	c.JSON(http.StatusCreated, model.SuccessResponse{Message: "add category success"})
 }
 
 func (ct *categoryAPI) UpdateCategory(c *gin.Context) {
-	var newCategory model.Category
-	if err := c.ShouldBindJSON(&newCategory); err != nil {
-		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: err.Error()})
-		return
-	}
-
 	categoryID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: "invalid Category ID"})
 		return
 	}
 
-	err = ct.categoryService.Update(categoryID, newCategory)
+	var updatedCategory model.Category
+	if err := c.ShouldBindJSON(&updatedCategory); err != nil {
+		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: err.Error()})
+		return
+	}
+
+	err = ct.categoryService.Update(categoryID, updatedCategory)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, model.ErrorResponse{Error: err.Error()})
 		return
@@ -66,7 +66,7 @@ func (ct *categoryAPI) UpdateCategory(c *gin.Context) {
 func (ct *categoryAPI) DeleteCategory(c *gin.Context) {
 	categoryID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: "invalid Category ID"})
+		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: "Invalid category ID"})
 		return
 	}
 
@@ -96,11 +96,11 @@ func (ct *categoryAPI) GetCategoryByID(c *gin.Context) {
 }
 
 func (ct *categoryAPI) GetCategoryList(c *gin.Context) {
-	category, err := ct.categoryService.GetList()
+	categories, err := ct.categoryService.GetList()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, model.ErrorResponse{Error: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, category)
+	c.JSON(http.StatusOK, categories)
 }
