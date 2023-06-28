@@ -16,6 +16,8 @@ import (
 type TaskWeb interface {
 	TaskPage(c *gin.Context)
 	TaskAddProcess(c *gin.Context)
+	TaskUpdateProcess(c *gin.Context)
+	TaskDeleteProcess(c *gin.Context)
 }
 
 type taskWeb struct {
@@ -107,8 +109,78 @@ func (t *taskWeb) TaskAddProcess(c *gin.Context) {
 	}
 
 	if status == 201 {
-		c.Redirect(http.StatusSeeOther, "/client/login")
+		c.Redirect(http.StatusSeeOther, "/client/task")
 	} else {
 		c.Redirect(http.StatusSeeOther, "/client/modal?status=error&message=Add Task Failed!")
+	}
+}
+
+func (t *taskWeb) TaskUpdateProcess(c *gin.Context) {
+	var email string
+	if temp, ok := c.Get("email"); ok {
+		if contextData, ok := temp.(string); ok {
+			email = contextData
+		}
+	}
+
+	session, err := t.sessionService.GetSessionByEmail(email)
+	if err != nil {
+		c.Redirect(http.StatusSeeOther, "/client/modal?status=error&message="+err.Error())
+		return
+	}
+
+	id, _ := strconv.Atoi(c.Request.FormValue("id"))
+	priority, _ := strconv.Atoi(c.Request.FormValue("priority"))
+	categoryID, _ := strconv.Atoi(c.Request.FormValue("category_id"))
+	userID, _ := strconv.Atoi(c.Request.FormValue("user_id"))
+	task := model.Task{
+		ID:         id,
+		Title:      c.Request.FormValue("title"),
+		Deadline:   c.Request.FormValue("deadline"),
+		Priority:   priority,
+		Status:     c.Request.FormValue("status"),
+		CategoryID: categoryID,
+		UserID:     userID,
+	}
+
+	status, err := t.taskClient.UpdateTask(session.Token, task)
+	if err != nil {
+		c.Redirect(http.StatusSeeOther, "/client/modal?status=error&message="+err.Error())
+		return
+	}
+
+	if status == 200 {
+		c.Redirect(http.StatusSeeOther, "/client/task")
+	} else {
+		c.Redirect(http.StatusSeeOther, "/client/modal?status=error&message=Update Task Failed!")
+	}
+}
+
+func (t *taskWeb) TaskDeleteProcess(c *gin.Context) {
+	var email string
+	if temp, ok := c.Get("email"); ok {
+		if contextData, ok := temp.(string); ok {
+			email = contextData
+		}
+	}
+
+	session, err := t.sessionService.GetSessionByEmail(email)
+	if err != nil {
+		c.Redirect(http.StatusSeeOther, "/client/modal?status=error&message="+err.Error())
+		return
+	}
+
+	id, _ := strconv.Atoi(c.Request.FormValue("id"))
+
+	status, err := t.taskClient.DeleteTask(session.Token, id)
+	if err != nil {
+		c.Redirect(http.StatusSeeOther, "/client/modal?status=error&message="+err.Error())
+		return
+	}
+
+	if status == 200 {
+		c.Redirect(http.StatusSeeOther, "/client/task")
+	} else {
+		c.Redirect(http.StatusSeeOther, "/client/modal?status=error&message=Delete Task Failed!")
 	}
 }
