@@ -192,7 +192,12 @@ func RunClient(db *gorm.DB, gin *gin.Engine, embed embed.FS) *gin.Engine {
 		main.GET("/dashboard", client.DashboardWeb.Dashboard)
 		main.GET("/task", client.TaskWeb.TaskPage)
 		user.POST("/task/add/process", client.TaskWeb.TaskAddProcess)
+		user.POST("/task/update/process", client.TaskWeb.TaskUpdateProcess)
+		user.POST("/task/delete/process", client.TaskWeb.TaskDeleteProcess)
 		main.GET("/category", client.CategoryWeb.Category)
+		user.POST("/category/add/process", client.CategoryWeb.CategoryAddProcess)
+		user.POST("/category/update/process", client.CategoryWeb.CategoryUpdateProcess)
+		user.POST("/category/delete/process", client.CategoryWeb.CategoryDeleteProcess)
 	}
 
 	modal := gin.Group("/client")
