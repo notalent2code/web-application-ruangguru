@@ -39,23 +39,23 @@ func (t *taskAPI) AddTask(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, model.SuccessResponse{Message: "add task success"})
+	c.JSON(http.StatusCreated, model.SuccessResponse{Message: "add task success"})
 }
 
 func (t *taskAPI) UpdateTask(c *gin.Context) {
-	var newTask model.Task
-	if err := c.ShouldBindJSON(&newTask); err != nil {
-		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: err.Error()})
-		return
-	}
-
 	taskID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: "Invalid task ID"})
 		return
 	}
 
-	err = t.taskService.Update(taskID, &newTask)
+	var updatedTask model.Task
+	if err := c.ShouldBindJSON(&updatedTask); err != nil {
+		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: err.Error()})
+		return
+	}
+
+	err = t.taskService.Update(taskID, &updatedTask)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, model.ErrorResponse{Error: err.Error()})
 		return
@@ -97,13 +97,13 @@ func (t *taskAPI) GetTaskByID(c *gin.Context) {
 }
 
 func (t *taskAPI) GetTaskList(c *gin.Context) {
-	task, err := t.taskService.GetList()
+	tasks, err := t.taskService.GetList()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, model.ErrorResponse{Error: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, task)
+	c.JSON(http.StatusOK, tasks)
 }
 
 func (t *taskAPI) GetTaskListByCategory(c *gin.Context) {
@@ -112,12 +112,12 @@ func (t *taskAPI) GetTaskListByCategory(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, model.ErrorResponse{Error: "Invalid task ID"})
 		return
 	}
-	
-	task, err := t.taskService.GetTaskCategory(taskID)
+
+	tasksByCategory, err := t.taskService.GetTaskCategory(taskID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, model.ErrorResponse{Error: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, task)
+	c.JSON(http.StatusOK, tasksByCategory)
 }
