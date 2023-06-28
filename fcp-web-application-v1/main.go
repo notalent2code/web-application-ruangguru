@@ -86,7 +86,7 @@ func main() {
 
 		fmt.Println("Server running on " + config.BaseURL)
 
-		err = router.Run(":" + config.PORT)
+		err = router.Run("localhost:" + config.PORT)
 		if err != nil {
 			panic(err)
 		}
