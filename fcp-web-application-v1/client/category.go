@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -30,7 +31,7 @@ func (c *categoryClient) CategoryList(token string) ([]*model.Category, error) {
 		return nil, err
 	}
 
-	req, err := http.NewRequest("GET", config.SetUrl("/api/v1/Category/list"), nil)
+	req, err := http.NewRequest("GET", config.SetUrl("/api/v1/category/list"), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -89,8 +90,8 @@ func (c *categoryClient) AddCategory(token, name string) (respCode int, err erro
 
 	defer resp.Body.Close()
 
-	if resp.StatusCode != 200 {
-		return -1, errors.New("status code not 200")
+	if resp.StatusCode != 201 {
+		return -1, errors.New("status code not 201")
 	}
 
 	return resp.StatusCode, nil
@@ -103,7 +104,7 @@ func (c *categoryClient) UpdateCategory(token, id, name string) (respCode int, e
 	}
 
 	datajson := map[string]string{
-		"title": name,
+		"name": name,
 	}
 
 	data, err := json.Marshal(datajson)
@@ -111,7 +112,7 @@ func (c *categoryClient) UpdateCategory(token, id, name string) (respCode int, e
 		return -1, err
 	}
 
-	req, err := http.NewRequest("PUT", config.SetUrl("/api/v1/category/update/"+id), bytes.NewBuffer(data))
+	req, err := http.NewRequest("PUT", config.SetUrl(fmt.Sprintf("/api/v1/category/update/%s", id)), bytes.NewBuffer(data))
 	if err != nil {
 		return -1, err
 	}
@@ -137,7 +138,7 @@ func (c *categoryClient) DeleteCategory(token, id string) (respCode int, err err
 		return -1, err
 	}
 
-	req, err := http.NewRequest("DELETE", config.SetUrl("/api/v1/Category/delete/"+id), nil)
+	req, err := http.NewRequest("DELETE", config.SetUrl(fmt.Sprintf("/api/v1/category/delete/%s", id)), nil)
 	if err != nil {
 		return -1, err
 	}
