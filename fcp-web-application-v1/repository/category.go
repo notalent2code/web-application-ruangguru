@@ -31,12 +31,12 @@ func (c *categoryRepository) Store(Category *model.Category) error {
 	return nil
 }
 
-func (c *categoryRepository) Update(id int, category model.Category) error {// TODO: replace this
+func (c *categoryRepository) Update(id int, category model.Category) error {
 	err := c.db.Where(id).Updates(category).Error
 	return err
 }
 
-func (c *categoryRepository) Delete(id int) error {	// TODO: replace this
+func (c *categoryRepository) Delete(id int) error {	
 	err := c.db.Where(id).Delete(&model.Category{})
 	return err.Error 
 }
@@ -51,7 +51,7 @@ func (c *categoryRepository) GetByID(id int) (*model.Category, error) {
 	return &Category, nil
 }
 
-func (c *categoryRepository) GetList() ([]model.Category, error) {// TODO: replace this
+func (c *categoryRepository) GetList() ([]model.Category, error) {
 	var result []model.Category
 	rows, err := c.db.Table("categories").Rows()
 	if err != nil{

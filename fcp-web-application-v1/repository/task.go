@@ -32,12 +32,12 @@ func (t *taskRepository) Store(task *model.Task) error {
 	return nil
 }
 
-func (t *taskRepository) Update(id int, task *model.Task) error {	// TODO: replace this
+func (t *taskRepository) Update(id int, task *model.Task) error {	
 	err := t.db.Where(id).Updates(task).Error
 	return err
 }
 
-func (t *taskRepository) Delete(id int) error {						// TODO: replace this
+func (t *taskRepository) Delete(id int) error {						
 	err := t.db.Where(id).Delete(&model.Task{}).Error
 	return err
 }
@@ -52,7 +52,7 @@ func (t *taskRepository) GetByID(id int) (*model.Task, error) {
 	return &task, nil
 }
 
-func (t *taskRepository) GetList() ([]model.Task, error) {// TODO: replace this
+func (t *taskRepository) GetList() ([]model.Task, error) {
 	var result []model.Task
 	rows, err := t.db.Table("tasks").Rows()
 	if err != nil{
@@ -66,7 +66,7 @@ func (t *taskRepository) GetList() ([]model.Task, error) {// TODO: replace this
 	return result, nil
 }
 
-func (t *taskRepository) GetTaskCategory(id int) ([]model.TaskCategory, error) {// TODO: replace this
+func (t *taskRepository) GetTaskCategory(id int) ([]model.TaskCategory, error) {
 	result := []model.TaskCategory{}
 	t.db.Table("tasks").Select("tasks.id, tasks.title, categories.name AS category").Joins("inner join categories on tasks.category_id = categories.id").Where("tasks.id = ?", id).Scan(&result)
 	return result, nil 

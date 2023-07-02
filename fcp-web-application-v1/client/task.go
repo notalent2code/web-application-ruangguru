@@ -6,9 +6,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 )
 
 type TaskClient interface {
@@ -95,8 +95,8 @@ func (t *taskClient) AddTask(token string, task model.Task) (respCode int, err e
 
 	defer resp.Body.Close()
 
-	if resp.StatusCode != 200 {
-		return -1, errors.New("status code not 200")
+	if resp.StatusCode != 201 {
+		return -1, errors.New("status code not 201")
 	}
 
 	return resp.StatusCode, nil
@@ -122,7 +122,7 @@ func (t *taskClient) UpdateTask(token string, task model.Task) (respCode int, er
 		return -1, err
 	}
 
-	req, err := http.NewRequest("PUT", config.SetUrl("/api/v1/task/update/"+strconv.Itoa(task.ID)), bytes.NewBuffer(data))
+	req, err := http.NewRequest("PUT", config.SetUrl(fmt.Sprintf("/api/v1/task/update/%d", task.ID)), bytes.NewBuffer(data))
 	if err != nil {
 		return -1, err
 	}
@@ -148,7 +148,7 @@ func (t *taskClient) DeleteTask(token string, id int) (respCode int, err error) 
 		return -1, err
 	}
 
-	req, err := http.NewRequest("DELETE", config.SetUrl("/api/v1/task/delete/"+strconv.Itoa(id)), nil)
+	req, err := http.NewRequest("DELETE", config.SetUrl(fmt.Sprintf("/api/v1/task/delete/%d", id)), nil)
 	if err != nil {
 		return -1, err
 	}

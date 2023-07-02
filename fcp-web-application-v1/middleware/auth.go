@@ -8,14 +8,14 @@ import (
 )
 
 func Auth() gin.HandlerFunc {
-	return gin.HandlerFunc(func(ctx *gin.Context) {// TODO: answer here
+	return gin.HandlerFunc(func(ctx *gin.Context) {
 		data, err := ctx.Cookie("session_token")
 		if err != nil {
 			if err == http.ErrNoCookie {
 				if ctx.GetHeader("Content-Type") == "application/json" {
 					ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
 				} else {
-					ctx.Redirect(http.StatusSeeOther, "/user/login")
+					ctx.Redirect(http.StatusSeeOther, "/client/login")
 					ctx.Abort()
 				}
 				return

@@ -1,103 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   {{template "general/header"}}
+  <head>
+    {{template "general/header"}}
 
-   <style>
-    #user-element {
-      display: none;
-    }
-   </style>
-</head>
-<body>
-<!-- beginanswer -->
-<div class="bg-white">
-    <header class="absolute inset-x-0 top-0 z-50">
-      <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-        <div class="flex lg:flex-1">
-          <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only">Task Tracker Plus</span>
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
-          </a>
-        </div>
-        <div class="flex lg:hidden">
-          <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-            <span class="sr-only">Open main menu</span>
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
-        </div>
-        <div class="hidden lg:flex lg:gap-x-12">
-          <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Product</a>
-          <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-          <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
-          <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
-        </div>
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="/client/register" class="text-sm font-semibold leading-6 text-gray-900" style="padding-right: 20px;">Register</a>
-          <a href="/client/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </nav>
-      <!-- Mobile menu, show/hide based on menu open state. -->
-      <div class="lg:hidden" role="dialog" aria-modal="true">
-        <!-- Background backdrop, show/hide based on slide-over state. -->
-        <div class="fixed inset-0 z-50"></div>
-        <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div class="flex items-center justify-between">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only">Ruangguru</span>
-              <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+    <style>
+      #user-element {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- beginanswer -->
+    <div
+      class="font-rubik bg-cover"
+      style="background-image: url('https://i.ibb.co/6wbsF6J/bg-blur1-min.jpg')"
+    >
+      <header class="absolute inset-x-0 top-0 z-50">
+        <nav
+          class="bg-white backdrop-filter backdrop-blur-lg flex items-center justify-between p-4 lg:px-4"
+          aria-label="Global"
+        >
+          <div class="lg:flex lg:flex-1 lg:justify-start gap-5">
+            <a href="#" class="-m-1.5 p-1.5 flex flex-row gap-3">
+              <img
+                class="h-14 w-auto"
+                src="https://upload.wikimedia.org/wikipedia/commons/9/93/Taskful_Logo.svg"
+                alt=""
+              />
+              <span class="py-4 text-stone-700 font-semibold"> Home </span>
             </a>
-            <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
-              <span class="sr-only">Close menu</span>
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <a href="#about" class="py-4 font-semibold leading-6 text-stone-700"
+              >About</a
+            >
+            <a
+              href="#features"
+              class="py-4 font-semibold leading-6 text-stone-700"
+              >Features</a
+            >
+            <a
+              href="#contact"
+              class="py-4 font-semibold leading-6 text-stone-700"
+              >Contact</a
+            >
+          </div>
+          <div class="flex lg:hidden">
+            <button
+              type="button"
+              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-stone-700"
+            >
+              <span class="sr-only">Menu</span>
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
               </svg>
             </button>
           </div>
-          <div class="mt-6 flow-root">
-            <div class="-my-6 divide-y divide-gray-500/10">
-              <div class="space-y-2 py-6">
-                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
-                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Marketplace</a>
-                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
-              </div>
-              <div class="py-6">
-                <a href="/client/register" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Register</a>
-                <a href="/client/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
+          <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-3">
+            <a
+              href="/client/register"
+              class="btn btn-active btn-info text-white"
+              style="padding-right: 20px"
+              >Register</a
+            >
+            <a href="/client/login" class="btn btn-active btn-primary"
+              >Log in</a
+            >
+          </div>
+        </nav>
+        <!-- Mobile menu, show/hide based on menu open state. -->
+        <div class="lg:hidden" role="dialog" aria-modal="true">
+          <!-- Background backdrop, show/hide based on slide-over state. -->
+          <div class="fixed inset-0 z-50"></div>
+          <div
+            class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+          >
+            <div class="flex items-center justify-between">
+              <a href="#" class="-m-1.5 p-1.5">
+                <span class="sr-only">Ruangguru</span>
+                <img
+                  class="h-8 w-auto"
+                  src="https://upload.wikimedia.org/wikipedia/commons/9/93/Taskful_Logo.svg"
+                  alt=""
+                />
+              </a>
+              <button
+                type="button"
+                class="-m-2.5 rounded-md p-2.5 text-stone-700"
+              >
+                <span class="sr-only">Close menu</span>
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-6 flow-root">
+              <div class="-my-6 divide-y divide-gray-500/10">
+                <div class="py-6">
+                  <a
+                    href="/client/register"
+                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >Register</a
+                  >
+                  <a
+                    href="/client/login"
+                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >Log in</a
+                  >
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
-  
-    <div class="relative isolate px-6 pt-14 lg:px-8">
-      <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-      </div>
-      <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-        <div class="hidden sm:mb-8 sm:flex sm:justify-center">
-          <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-            Announcing our next round of funding. <a href="#" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
+      </header>
+
+      <div class="relative isolate px-6 pt-14 lg:px-8">
+        <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div class="text-center">
+            <h1
+              class="text-4xl font-bold tracking-tight text-indigo-700 sm:text-6xl"
+            >
+              Task Tracker Plus
+            </h1>
+            <p class="mt-6 text-lg leading-8 font-bold text-stone-700">
+              Final Course Project for SIKM Ruangguru Batch 4
+            </p>
           </div>
         </div>
+      </div>
+
+      <div
+        id="about"
+        class="bg-indigo-700 px-16 sm:px-28 lg:px-32 w-full py-10 sm:py-16 lg:py-28"
+      >
         <div class="text-center">
-          <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Task Tracker Plus</h1>
-          <p class="mt-6 text-lg leading-8 text-gray-600">Final Course Project for SIKM Ruangguru</p>
-          <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">→</span></a>
-          </div>
+          <h2 class="text-xl font-bold tracking-tight text-white sm:text-3xl">
+            About Task Tracker Plus
+          </h2>
+          <p class="mt-16 text-base leading-8 text-white">
+            Task Tracker Plus is the final course project of the Backend
+            Engineering Bootcamp at Ruangguru, designed to assist students in
+            managing their study schedules. Developed using Go programming
+            language, this innovative tool aims to streamline and optimize the
+            study routines of students.
+          </p>
+          <p class="mt-8 text-base leading-8 text-white">
+            Task Tracker Plus provides a solution for organizing study sessions
+            effectively. With a user-friendly interface and some features,
+            students can easily manage their tasks and optimize their study
+            routines.
+          </p>
         </div>
       </div>
-      <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-        <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+      <div
+        id="features"
+        class="px-16 sm:px-28 lg:px-32 w-full py-10 sm:py-16 lg:py-28"
+      >
+        <div class="text-left">
+          <h2
+            class="text-xl font-bold tracking-tight text-indigo-700 sm:text-3xl"
+          >
+            Features
+          </h2>
+          <ul
+            class="mt-8 text-base leading-8 text-stone-700 font-semibold list-disc"
+          >
+            <li>Add a new task</li>
+            <li>Update tasks that have been added</li>
+            <li>Get task lists and task information</li>
+            <li>Delete unnecessary or already completed tasks</li>
+            <li>Set the category for each task</li>
+          </ul>
+        </div>
+      </div>
+      <div
+        id="contact"
+        class="bg-indigo-700 px-16 sm:px-28 lg:px-32 w-full py-10 sm:py-16 lg:py-28"
+      >
+        <div class="text-left">
+          <h2 class="text-xl font-bold tracking-tight text-white sm:text-3xl">
+            Contact
+          </h2>
+          <ul class="mt-16 text-base leading-8 text-white list-none">
+            <li class="flex">
+              <svg
+                class="w-6"
+                viewBox="0 0 214 214"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M106.686 0C121.418 0 135.262 2.79415 148.217 8.38244C161.171 13.9707 172.475 21.5911 182.128 31.2436C191.78 40.8962 199.4 52.1997 204.989 65.1544C210.577 78.1091 213.371 91.9528 213.371 106.686C213.371 121.418 210.577 135.262 204.989 148.217C199.4 161.171 191.78 172.475 182.128 182.128C172.475 191.78 161.171 199.4 148.217 204.989C135.262 210.577 121.418 213.371 106.686 213.371C91.9528 213.371 78.1091 210.577 65.1544 204.989C52.1997 199.4 40.8962 191.78 31.2436 182.128C21.5911 172.475 13.9707 161.171 8.38244 148.217C2.79415 135.262 0 121.418 0 106.686C0 91.9528 2.79415 78.1091 8.38244 65.1544C13.9707 52.1997 21.5911 40.8962 31.2436 31.2436C40.8962 21.5911 52.1997 13.9707 65.1544 8.38244C78.1091 2.79415 91.9528 0 106.686 0ZM46.7385 134.373L78.7441 111.512L46.7385 88.6507V134.373ZM166.633 144.534L127.515 116.592L106.686 131.579L85.6025 116.592L46.7385 144.534V160.028H166.633V144.534ZM166.633 88.6507L134.627 111.512L166.633 134.373V88.6507ZM166.633 53.3428H46.7385V68.8376L106.686 111.512L166.633 68.8376V53.3428Z"
+                  fill="white"
+                />
+              </svg>
+              <p class="mx-4 my-2">rihlanrihlan24@gmail.com</p>
+            </li>
+            <li class="flex">
+              <svg
+                class="w-6"
+                viewBox="0 0 214 214"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M105.538 130.266C102.309 130.266 99.2928 129.671 96.4887 128.482C93.6845 127.292 91.2202 125.635 89.0959 123.511C86.9715 121.386 85.3145 118.879 84.1249 115.99C82.9352 113.101 82.3404 110.042 82.3404 106.813C82.3404 103.584 82.9352 100.567 84.1249 97.7633C85.3145 94.9591 86.9715 92.4948 89.0959 90.3705C91.2202 88.2461 93.6845 86.5891 96.4887 85.3995C99.2928 84.2098 102.309 83.615 105.538 83.615C111.997 83.615 117.477 85.8668 121.981 90.3705C126.485 94.8741 128.737 100.355 128.737 106.813C128.737 110.042 128.142 113.101 126.952 115.99C125.762 118.879 124.105 121.386 121.981 123.511C119.857 125.635 117.392 127.292 114.588 128.482C111.784 129.671 108.767 130.266 105.538 130.266ZM142.757 106.813C142.757 105.284 142.672 103.711 142.502 102.097C142.332 100.482 142.078 98.9954 141.738 97.6358H152.19V148.875C152.19 150.235 151.765 151.34 150.915 152.19C150.065 153.039 148.96 153.464 147.601 153.464H63.476C62.1164 153.464 61.0118 153.039 60.162 152.19C59.3123 151.34 58.8874 150.235 58.8874 148.875V97.6358H69.3393C68.9994 98.9954 68.7444 100.482 68.5745 102.097C68.4046 103.711 68.3196 105.284 68.3196 106.813C68.3196 111.912 69.2968 116.755 71.2512 121.344C73.2056 125.932 75.8398 129.926 79.1538 133.325C82.4678 136.724 86.4192 139.401 91.0078 141.355C95.5964 143.31 100.44 144.287 105.538 144.287C110.637 144.287 115.48 143.31 120.069 141.355C124.658 139.401 128.609 136.724 131.923 133.325C135.237 129.926 137.871 125.932 139.826 121.344C141.78 116.755 142.757 111.912 142.757 106.813ZM106.558 0C121.344 0 135.195 2.80416 148.111 8.41249C161.027 14.0208 172.328 21.626 182.016 31.2282C191.703 40.8303 199.35 52.0894 204.959 65.0056C210.567 77.9217 213.371 91.7726 213.371 106.558C213.371 121.344 210.567 135.195 204.959 148.111C199.35 161.027 191.703 172.328 182.016 182.016C172.328 191.703 161.027 199.35 148.111 204.959C135.195 210.567 121.344 213.371 106.558 213.371C91.7726 213.371 77.9217 210.567 65.0056 204.959C52.0894 199.35 40.8303 191.703 31.2282 182.016C21.626 172.328 14.0208 161.027 8.41249 148.111C2.80416 135.195 0 121.344 0 106.558C0 91.7726 2.80416 77.9217 8.41249 65.0056C14.0208 52.0894 21.626 40.8303 31.2282 31.2282C40.8303 21.626 52.0894 14.0208 65.0056 8.41249C77.9217 2.80416 91.7726 0 106.558 0ZM166.21 60.162C166.21 56.2532 164.851 52.9392 162.132 50.22C159.412 47.5008 156.098 46.1412 152.19 46.1412H58.8874C54.9786 46.1412 51.6646 47.5008 48.9454 50.22C46.2262 52.9392 44.8666 56.2532 44.8666 60.162V153.464C44.8666 157.373 46.2262 160.687 48.9454 163.406C51.6646 166.125 54.9786 167.485 58.8874 167.485H152.19C156.098 167.485 159.412 166.125 162.132 163.406C164.851 160.687 166.21 157.373 166.21 153.464V60.162ZM147.601 60.162C148.96 60.162 150.065 60.6294 150.915 61.5641C151.765 62.4988 152.19 63.646 152.19 65.0056V79.0264C152.19 80.386 151.765 81.4906 150.915 82.3404C150.065 83.1901 148.96 83.615 147.601 83.615H133.58C132.22 83.615 131.073 83.1901 130.139 82.3404C129.204 81.4906 128.737 80.386 128.737 79.0264V65.0056C128.737 63.646 129.204 62.4988 130.139 61.5641C131.073 60.6294 132.22 60.162 133.58 60.162H147.601Z"
+                  fill="white"
+                />
+              </svg>
+              <p class="mx-4 my-2">rihlannn24_</p>
+            </li>
+            <li class="flex">
+              <svg
+                class="w-6"
+                viewBox="0 0 214 214"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M106.558 0C121.344 0 135.195 2.80416 148.111 8.41249C161.027 14.0208 172.328 21.626 182.016 31.2282C191.703 40.8303 199.35 52.0894 204.959 65.0056C210.567 77.9217 213.371 91.7726 213.371 106.558C213.371 121.344 210.567 135.195 204.959 148.111C199.35 161.027 191.703 172.328 182.016 182.016C172.328 191.703 161.027 199.35 148.111 204.959C135.195 210.567 121.344 213.371 106.558 213.371C91.7726 213.371 77.9217 210.567 65.0056 204.959C52.0894 199.35 40.8303 191.703 31.2282 182.016C21.626 172.328 14.0208 161.027 8.41249 148.111C2.80416 135.195 0 121.344 0 106.558C0 91.7726 2.80416 77.9217 8.41249 65.0056C14.0208 52.0894 21.626 40.8303 31.2282 31.2282C40.8303 21.626 52.0894 14.0208 65.0056 8.41249C77.9217 2.80416 91.7726 0 106.558 0ZM73.4181 80.0461H46.6511V166.72H73.4181V80.0461ZM59.9071 73.1631C63.646 73.1631 66.8325 71.8885 69.4667 69.3393C72.1009 66.79 73.4181 63.646 73.4181 59.9071C73.4181 56.1682 72.1009 53.0241 69.4667 50.4749C66.8325 47.9257 63.646 46.6511 59.9071 46.6511C56.1682 46.6511 53.0241 47.9257 50.4749 50.4749C47.9257 53.0241 46.6511 56.1682 46.6511 59.9071C46.6511 63.646 47.9257 66.79 50.4749 69.3393C53.0241 71.8885 56.1682 73.1631 59.9071 73.1631ZM166.72 116.5C166.72 110.382 165.021 104.391 161.622 98.528C158.223 92.6648 153.804 88.2036 148.366 85.1445C143.437 82.4254 137.701 80.9808 131.158 80.8108C124.615 80.6409 118.625 81.7456 113.186 84.1249V80.0461H86.6741V166.72H113.186V113.696L124.403 108.343C125.762 107.663 127.589 107.323 129.884 107.323C132.178 107.323 134.005 107.748 135.365 108.598C136.384 109.107 137.404 110.212 138.424 111.912C139.443 113.611 139.953 115.141 139.953 116.5V166.72H166.72V116.5Z"
+                  fill="white"
+                />
+              </svg>
+              <p class="mx-4 my-2">rihlan-lumenda</p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-<!-- endanswer -->
-</body>
+    <!-- endanswer -->
+  </body>
 </html>

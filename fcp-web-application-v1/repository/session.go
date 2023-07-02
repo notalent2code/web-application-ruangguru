@@ -24,22 +24,22 @@ func NewSessionsRepo(db *gorm.DB) *sessionsRepo {
 	return &sessionsRepo{db}
 }
 
-func (u *sessionsRepo) AddSessions(session model.Session) error {	// TODO: replace this
+func (u *sessionsRepo) AddSessions(session model.Session) error {	
 	err := u.db.Create(&session)
 	return err.Error
 }
 
-func (u *sessionsRepo) DeleteSession(token string) error {			// TODO: replace this
+func (u *sessionsRepo) DeleteSession(token string) error {			
 	err := u.db.Where("token = ?", token).Delete(&model.Session{})
 	return err.Error
 }
 
-func (u *sessionsRepo) UpdateSessions(session model.Session) error {// TODO: replace this
+func (u *sessionsRepo) UpdateSessions(session model.Session) error {
 	err := u.db.Where("email = ?", session.Email).Updates(session)
 	return err.Error
 }
 
-func (u *sessionsRepo) SessionAvailEmail(email string) (model.Session, error) {// TODO: replace this
+func (u *sessionsRepo) SessionAvailEmail(email string) (model.Session, error) {
 	var result model.Session
 	err := u.db.Where("email = ?", email).First(&result).Error
 	if err != nil{
@@ -48,7 +48,7 @@ func (u *sessionsRepo) SessionAvailEmail(email string) (model.Session, error) {/
 	return result, nil
 }
 
-func (u *sessionsRepo) SessionAvailToken(token string) (model.Session, error) {// TODO: replace this
+func (u *sessionsRepo) SessionAvailToken(token string) (model.Session, error) {
 	var result model.Session
 	err := u.db.Where("token = ?", token).First(&result).Error
 	if err != nil{
