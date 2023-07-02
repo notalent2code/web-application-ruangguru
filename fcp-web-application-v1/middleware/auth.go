@@ -30,7 +30,7 @@ func Auth() gin.HandlerFunc {
             return model.JwtKey, nil
         })
         if err != nil || !tkn.Valid {
-            ctx.JSON(400, model.ErrorResponse{Error: "ga valid bang"})
+            ctx.JSON(400, model.ErrorResponse{Error: "Invalid token"})
             return
         }
 		ctx.Set("email", claims.Email)
